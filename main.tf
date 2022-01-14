@@ -1,22 +1,16 @@
-data "aws_ami" "ubuntu" {
+data "aws_ami" "hashidemos" {
+  owners      = ["self"]
   most_recent = true
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"]
+    values = ["assareh-hashidemos-*"]
   }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
 }
 
 resource "aws_instance" "this" {
   count = var.instance_count
-  ami           = data.aws_ami.ubuntu.id
+  ami           = data.aws_ami.hashidemos.id
   instance_type = "t2.micro"
 
   tags = {
